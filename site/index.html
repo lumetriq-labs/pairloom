@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#5d6366" />
+  <title>URLが変わりました</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100dvh; display: grid; place-items: center; padding: 24px;
+      background: #5d6366; color: #10201a;
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif; }
+    main { width: min(100%, 420px); padding: 28px 24px; border-radius: 24px; text-align: center;
+      background: rgba(255,255,255,.85); box-shadow: 0 10px 40px rgba(0,0,0,.25); }
+    h1 { margin: 0 0 16px; font-size: 22px; }
+    p { margin: 0 0 14px; font-size: 15px; line-height: 1.6; }
+    .url { font-weight: 800; word-break: break-all; }
+    .go { display: block; margin: 20px 0 10px; padding: 14px; border-radius: 999px;
+      background: #1f6f4a; color: #fff; font-size: 16px; font-weight: 800; text-decoration: none; }
+    .count { margin: 0; font-size: 13px; color: rgba(16,32,26,.6); }
+    .app { display: none; margin: 0 0 14px; padding: 14px 16px; border-radius: 16px; text-align: left;
+      background: rgba(31,111,74,.1); }
+    .app h2 { margin: 0 0 8px; font-size: 15px; }
+    .app ol { margin: 0; padding-left: 1.4em; font-size: 15px; line-height: 1.6; }
+    span.url { display: none; }
+    .standalone .app, .standalone span.url { display: block; }
+    .standalone .web { display: none; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>URLが変わりました</h1>
+    <p>新しいURL：<br /><a class="url web" href="https://lumetriq-labs.github.io/corotena/">lumetriq-labs.github.io/corotena/</a><span class="url">lumetriq-labs.github.io/corotena/</span></p>
+    <p class="web">ホーム画面に追加している方、ブックマークしている方は、新しいURLで登録し直してください。</p>
+    <section class="app">
+      <h2>ホーム画面のアプリをお使いの方へ</h2>
+      <ol>
+        <li>ブラウザで lumetriq-labs.github.io/corotena/ を開いて、ホーム画面に追加してください。</li>
+        <li>このアイコンは削除してください。</li>
+      </ol>
+    </section>
+    <p>このURLは <strong>2026年11月17日</strong> で使えなくなります。</p>
+    <a class="go web" href="https://lumetriq-labs.github.io/corotena/">新しいURLを開く</a>
+    <p class="count web" id="count" aria-live="off">10秒後に自動で移動します</p>
+  </main>
+  <script>
+    const NEW_URL = "https://lumetriq-labs.github.io/corotena/";
+    try { localStorage.removeItem("pairloom:v1"); localStorage.removeItem("pairloom:swiped"); } catch {}
+    // Home-screen apps keep the old name on their icon until it is deleted, so they stay here instead of moving on.
+    const standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+    if (standalone) document.documentElement.classList.add("standalone");
+    let left = 10;
+    const count = document.getElementById("count");
+    const timer = standalone ? 0 : setInterval(() => {
+      left--;
+      if (left > 0) { count.textContent = `${left}秒後に自動で移動します`; return; }
+      clearInterval(timer);
+      location.replace(NEW_URL);
+    }, 1000);
+  </script>
+</body>
+</html>
